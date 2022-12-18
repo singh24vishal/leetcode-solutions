@@ -1,24 +1,18 @@
 class Solution {
 public:
     bool find132pattern(vector<int>& v) {
-        multiset<int> st1,st2;
         int n=v.size();
-        for(int i=1;i<n;i++) st2.insert(v[i]);
-        st1.insert(v[0]);
-        for(int i=1;i<n;i++)
+        stack<int> st;
+        int x=INT_MIN;
+        for(int i=n-1;i>=0;i--)
         {
-            st2.erase(st2.find(v[i]));
-            auto it=st2.lower_bound(v[i]);
-            if(it!=st2.begin())
+            if(v[i]<x) return true;
+            while(!st.empty() and v[i]>st.top())
             {
-                it--;
-                if(*st1.begin()<*it)
-                {
-                    cout<<i<<" "<<v[i];
-                    return true;
-                }
+                x=st.top();
+                st.pop();
             }
-            st1.insert(v[i]);
+            st.push(v[i]);
         }
         return false;
     }
