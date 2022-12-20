@@ -1,15 +1,13 @@
 class Solution {
 public:
     int maxChunksToSorted(vector<int>& v) {
-        int ans=0,n=v.size();
-        multiset<int> st,st2;
-        for(int i=0;i<n;i++) st.insert(v[i]);
-        
+        int ans=0,n=v.size(),l=-1;
+        vector<int> r(n+1,INT_MAX);
+        for(int i=n-1;i>=0;i--) r[i]=min(r[i+1],v[i]);
         for(int i=0;i<n;i++)
         {
-            st.erase(st.find(v[i]));
-            st2.insert(v[i]);
-            if(st.size()==0 or (*st.begin()>=v[i] and *st.begin()>=*--st2.end())) ans++;
+            l=max(l,v[i]);
+            if(l<=r[i+1]) ans++;
         }
         return ans;
     }
