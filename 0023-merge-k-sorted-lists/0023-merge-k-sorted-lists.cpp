@@ -15,23 +15,21 @@ public:
         ListNode *h3,*prev;
         h3=new ListNode();
         prev=h3;
-        while(1)
+        vector<pair<int,ListNode*>> arr;
+        for(int i=0;i<n;i++)
         {
-            int mn=INT_MAX,in=-1;
-            for(int i=0;i<n;i++)
+            while(v[i])
             {
-                if(v[i]!=NULL and v[i]->val<mn)
-                {
-                    mn=v[i]->val;
-                    in=i;
-                }
+                arr.push_back({v[i]->val,v[i]});
+                v[i]=v[i]->next;
             }
-            if(in==-1) break;
-            ListNode* cur=new ListNode();
-            cur->val=mn;
+        }
+        sort(arr.begin(),arr.end());
+        for(auto e:arr)
+        {
+            ListNode* cur=new ListNode(e.first);
             prev->next=cur;
             prev=cur;
-            v[in]=v[in]->next;
         }
         return h3->next;
     }
