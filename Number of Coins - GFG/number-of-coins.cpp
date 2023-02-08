@@ -9,23 +9,17 @@ class Solution{
 	int minCoins(int coins[], int n, int sum) 
 	{ 
 	    // Your code goes here
-        int t[n+1][sum+1];
-        for(int i=0;i<=sum;i++)
-            t[0][i]=INT_MAX-1;
-        for(int i=1;i<=n;i++)
-            t[i][0]=0;
-        for(int i=1;i<=n;i++)
+        vector<int> dp(sum+1,INT_MAX-1);
+        dp[0]=0;
+        for(int i=1;i<=sum;i++)
         {
-            for(int j=1;j<=sum;j++)
+            for(int j=0;j<n;j++)
             {
-                if(coins[i-1]<=j)
-                    t[i][j]=min(1+t[i][j-coins[i-1]],t[i-1][j]);
-                else t[i][j]=t[i-1][j];
+                if(coins[j]<=i) dp[i]=min(dp[i],1+dp[i-coins[j]]);
             }
         }
-        if(t[n][sum]>sum)
-            return -1;
-        return t[n][sum];
+        if(dp[sum]>sum) return -1;
+        return dp[sum];
 	} 
 	  
 };
