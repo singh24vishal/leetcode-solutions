@@ -7,12 +7,6 @@ public:
             t[0][i]=INT_MAX-1;
         for(int i=1;i<=n;i++)
             t[i][0]=0;
-        // for(int i=1;i<=sum;i++)
-        // {
-        //     if(i%coins[0]==0)
-        //         t[1][i]=i/coins[0];
-        //     else t[1][i]=INT_MAX-1;
-        // }
         for(int i=1;i<=n;i++)
         {
             for(int j=1;j<=sum;j++)
