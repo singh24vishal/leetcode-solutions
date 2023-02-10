@@ -4,14 +4,18 @@ public:
         int n=arr.size();
         if(n==1) return 0;
         long long int ans=1;
-        int l=0,r=arr[0],cur=0;
+        int l=0,r=arr[0];
         while(r<n-1)
         {
-            for(int i=r;i>=0;i--)
+            int tl=l;
+            for(int i=r;i>tl;i--)
             {
-                r=max(r,i+arr[i]);
+                if(i+arr[i]>r)
+                {
+                    r=i+arr[i];
+                    l=i;
+                }
             }
-            // cout<<r<<" ";
             ans++;
         }
         return ans;
