@@ -5,19 +5,21 @@ public:
     {
         return (i>=0 and j>=0 and i<n and j<m);
     }
-    void dfs(int i,int j,int n,int m,vector<vector<int>>&v)
+    void dfs(int i,int j,int n,int m,vector<vector<int>>&v,queue<vector<int>>&q)
     {
         v[i][j]=-1;
+        q.push({i,j,0});
         for(auto e:vp)
         {
             int x=i+e.first;
             int y=j+e.second;
             if(ok(x,y,n,m) and v[x][y]==1)
-                dfs(x,y,n,m,v);
+                dfs(x,y,n,m,v,q);
         }
     }
     int shortestBridge(vector<vector<int>>& v) {
         int n=v.size(),m=v[0].size();
+        queue<vector<int>> q;
         for(int i=0;i<n;i++)
         {
             int f=0;
@@ -26,22 +28,11 @@ public:
                 if(v[i][j]==1)
                 {
                    f=1;
-                    dfs(i,j,n,m,v);
+                    dfs(i,j,n,m,v,q);
                     break;
                 }
             }
             if(f) break;
-        }
-        queue<vector<int>> q;
-        for(int i=0;i<n;i++)
-        {
-            for(int j=0;j<m;j++)
-            {
-                if(v[i][j]==-1)
-                {
-                    q.push({i,j,0});
-                }
-            }
         }
         int ans=INT_MAX;
         while(!q.empty())
