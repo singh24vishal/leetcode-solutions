@@ -2,10 +2,8 @@ class Solution {
 public:
     vector<string> letterCasePermutation(string s) {
         vector<string> ans;
-        int n=s.size(), lim=pow(2,s.size());
-        string str="abcdefghijklmnopqrstuvwxyz";
-        string str2="ABCDEFGHIJKLMNOPQRSTUVWXYZ";  
-        set<string> st;
+        int n=s.size(), lim=pow(2,s.size());  
+        unordered_map<string,int> mp;
         for(int i=0;i<lim;i++)
         {
             int j=0,temp=i;
@@ -20,9 +18,12 @@ public:
                 temp/=2;
                 j++;
             }
-            st.insert(str3);
+            if(!mp[str3])
+            {
+                mp[str3]=1;
+                ans.push_back(str3);
+            }
         }
-        for (auto e:st) ans.push_back(e);
         return ans;
     }
 };
