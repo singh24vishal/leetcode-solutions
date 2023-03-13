@@ -1,9 +1,10 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        map<char,int> mp1,mp2;
-        for(auto e:s) mp1[e]++;
-        for(auto e:t) mp2[e]++;
-        return mp1==mp2;
+        vector<int> v1(26,0);
+        vector<int> v2(26,0);
+        for(auto e:s) v1[e-'a']++;
+        for(auto e:t) v2[e-'a']++;
+        return v1==v2;
     }
 };
